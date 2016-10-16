@@ -491,6 +491,10 @@ func (value Value) resolve() Value {
 	switch value := value.value.(type) {
 	case _reference:
 		return value.getValue()
+	case string:
+		if len([]byte(value)) > 5000000 {
+			panic("Stahp, str limit")
+		}
 	}
 	return value
 }

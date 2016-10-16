@@ -7,13 +7,8 @@ import (
 
 	"github.com/robertkrimen/otto/token"
 )
-
-func (self *_runtime) cmpl_evaluate_nodeExpression(node _nodeExpression) Value {
-	// Allow interpreter interruption
-	// If the Interrupt channel is nil, then
-	// we avoid runtime.Gosched() overhead (if any)
-	// FIXME: Test this
-	if self.otto.Interrupt != nil {
+func (self *_runtime) cmpl_check_eval_timeout(){
+		if self.otto.Interrupt != nil {
 		runtime.Gosched()
 		select {
 		case value := <-self.otto.Interrupt:
@@ -21,6 +16,13 @@ func (self *_runtime) cmpl_evaluate_nodeExpression(node _nodeExpression) Value {
 		default:
 		}
 	}
+}
+func (self *_runtime) cmpl_evaluate_nodeExpression(node _nodeExpression) Value {
+	// Allow interpreter interruption
+	// If the Interrupt channel is nil, then
+	// we avoid runtime.Gosched() overhead (if any)
+	// FIXME: Test this
+	self.cmpl_check_eval_timeout()
 
 	switch node := node.(type) {
 
