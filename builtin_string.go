@@ -297,9 +297,7 @@ func builtinString_split(call FunctionCall) Value {
 	limitValue := call.Argument(1)
 	limit := -1
 	if limitValue.IsDefined() {
-		fmt.Println(limitValue)
-		limit = int(toUint32(limitValue))
-		fmt.Println(limit)
+		limit = limitValue.ToInteger()
 	}
 
 	if limit == 0 {
