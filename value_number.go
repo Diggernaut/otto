@@ -268,6 +268,8 @@ func toInt32(value Value) int32 {
 func toUint32(value Value) uint32 {
 	{
 		switch value := value.value.(type) {
+		case int:
+			return uint32(value)
 		case int8:
 			return uint32(value)
 		case int16:
