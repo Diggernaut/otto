@@ -297,7 +297,11 @@ func builtinString_split(call FunctionCall) Value {
 	limitValue := call.Argument(1)
 	limit := -1
 	if limitValue.IsDefined() {
-		limit = limitValue.ToInteger()
+		limitInt, err := limitValue.ToInteger()
+		if err != nil{
+			panic(err)
+		}
+		limit = int(limitInt)
 	}
 
 	if limit == 0 {
