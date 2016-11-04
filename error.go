@@ -245,6 +245,7 @@ func catchPanic(function func()) (err error) {
 				return
 			case string:
 				err = errors.New(caught)
+				return
 			}
 			
 		//	panic(caught)
