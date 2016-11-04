@@ -298,6 +298,7 @@ func builtinString_split(call FunctionCall) Value {
 	limit := -1
 	if limitValue.IsDefined() {
 		limit = int(toUint32(limitValue))
+		fmt.Println(limit)
 	}
 
 	if limit == 0 {
