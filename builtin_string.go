@@ -5,6 +5,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"fmt"
 	"unicode/utf8"
 )
 
@@ -373,13 +374,15 @@ func builtinString_split(call FunctionCall) Value {
 			splitLimit = limit + 1
 			excess = true
 		}
-
+		fmt.Println(splitLimit)
+		fmt.Println(excess)
+		fmt.Println(limit)
 		split := strings.SplitN(target, separator, splitLimit)
-
+		fmt.Println(split)
 		if excess && len(split) > limit {
 			split = split[:limit]
 		}
-
+		fmt.Println(split)
 		return call.runtime.toValue(split)
 	}
 }
